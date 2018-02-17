@@ -1,0 +1,17 @@
+- name: install needed os packages
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ os_packages }}'
+
+- name: download impressive
+  unarchive:
+    src: 'https://10gbps-io.dl.sourceforge.net/project/impressive/Impressive/0.12.0/Impressive-0.12.0.tar.gz'
+    dest: /vagrant
+    remote_src: yes
+
+- name: install needed python modules
+  pip:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ py_packages }}'

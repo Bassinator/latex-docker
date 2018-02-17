@@ -1,0 +1,8 @@
+os_packages:
+- 'poppler-utils'
+- 'python-pip'
+- '@^Server with GUI'
+
+py_packages:
+- pygame
+- pillow

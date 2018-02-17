@@ -1,0 +1,57 @@
+- name: install os packages
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ package_names }}"
+
+- name: download latex installer
+  unarchive:
+    src: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+    dest: ~/
+    remote_src: yes
+    extra_opts:
+    - '--transform'
+    - 's/^install-tl-20180217/install-tl-dir/'
+  register: latexdl
+
+- cpanm:
+    name: 'Digest::MD5'
+
+- name: install texlive TAKES A LONG TIME
+  command: '~/install-tl-dir/install-tl --profile=/vagrant/texlive.profile'
+  args:
+    creates: '/usr/local/texlive/'
+
+- name: add texlive binaries to path
+  lineinfile:
+   dest: /etc/profile.d/texlive.sh
+   state: present
+   create: yes
+   line: 'export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-linux;'
+
+- name: install runlatex script
+  copy:
+    src: runlatex
+    dest: /bin
+    mode: 0755
+
+- name: configure automatic latex compilation
+  copy:
+    src: vagrant
+    dest: /var/spool/incron
+    owner: root
+    group: vagrant
+    mode: 500
+  register: incron
+
+- name: allow user vagrant to use incron
+  lineinfile:
+   dest: /etc/incron.allow
+   state: present
+   create: yes
+   line: vagrant
+
+- name: activate incron configure
+  command: incrontab -d
+  become_user: vagrant
+  when: incron.changed

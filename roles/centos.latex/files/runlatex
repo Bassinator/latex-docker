@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $1
+/usr/local/texlive/2017/bin/x86_64-linux/pdflatex --output-format=pdf --output-directory=$2 $3
