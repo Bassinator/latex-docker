@@ -1,7 +1,6 @@
 FROM centos
 
-
-RUN yum -y update; yum clean all
+RUN yum -y install epel-release && yum -y update && yum clean all
 RUN yum -y install openssh-server \
                    openssh-clients \
                    passwd \
@@ -35,10 +34,12 @@ RUN mkdir /var/run/sshd
 RUN echo "[supervisord]" > /etc/supervisord.conf && \
     echo "nodaemon=true" >> /etc/supervisord.conf && \
     echo "" >> /etc/supervisord.conf && \
+    echo "[supervisorctl]" >> /etc/supervisord.conf && \
+    echo "" >> /etc/supervisord.conf && \
     echo "[program:sshd]" >> /etc/supervisord.conf && \
     echo "command=/usr/sbin/sshd -D -e" >> /etc/supervisord.conf
 
 
-CMD ["/usr/sbin/sshd", "-D","-e"]
-#CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/sbin/sshd", "-D","-e"]
+CMD ["/usr/bin/supervisord"]
 EXPOSE 22

@@ -14,11 +14,11 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define :impressive do |imp|
-    imp.vm.box = "centos/7"
-    imp.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "impressive.yml"
-      ansible.install = true
-    end
-  end
+#  config.vm.define :impressive do |imp|
+#    imp.vm.box = "centos/7"
+#    imp.vm.provision "ansible_local" do |ansible|
+#      ansible.playbook = "impressive.yml"
+#      ansible.install = true
+#    end
+#  end
 end
