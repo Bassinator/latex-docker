@@ -1,2 +1,0 @@
-\beamer@sectionintoc {1}{John P. Kotter}{3}{0}{1}
-\beamer@sectionintoc {2}{Kurt Levin}{5}{0}{2}
