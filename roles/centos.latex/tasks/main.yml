@@ -11,7 +11,7 @@
     remote_src: yes
     extra_opts:
     - '--transform'
-    - 's/^install-tl-20180217/install-tl-dir/'
+    - 's/^install-tl-[0-9]*/install-tl-dir/'
   register: latexdl
 
 - cpanm:
