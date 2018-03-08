@@ -1,0 +1,123 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{bbding}
+\usepackage[weather]{ifsym}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{pgfpages}
+\usepackage{transparent}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{smartdiagram}
+
+
+\title{myHelsana Deployment Pipeline}
+
+\subtitle{\smartdiagramset{border color=none,sequence item border color=none,sequence item font size=\footnotesize, sequence item text color=ipt-blue,
+  set color list={ipt-LIGHT-blue,ipt-light-blue,ipt-light-red}
+}
+\smartdiagram[sequence diagram]{Run,Verify,Release}}
+
+
+\author{Bastian Bukatz}
+\institute{Innovation Process Technology}
+\date{\today}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% https://www.w3schools.com/colors/colors_cmyk.asp
+\definecolor{ice-blue}{RGB}{162,210,223}
+\definecolor{ipt-blue}{cmyk}{1,0.45,0.18,0.07}
+\definecolor{ipt-light-blue}{cmyk}{0.45,0.14,0,0.12}
+\definecolor{ipt-LIGHT-blue}{cmyk}{0.22,0.07,0,0.06}
+\definecolor{ipt-red}{cmyk}{0,1,0.53,0}
+\definecolor{ipt-light-red}{cmyk}{0,0.5,0.26,0}
+\definecolor{ipt-LIGHT-red}{cmyk}{0,0.25,0.13,0}
+
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=ipt-blue,urlcolor=ipt-blue}
+
+
+\begin{document}
+
+\section{Einleitung}
+\subsection{Management Summary}
+Im folgenden werden einige Voraussetzungen erklärt.
+
+\subsection{Was ist eine Deployment Pipeline}
+deployment pipeline's job is to detect any changes that will lead to problems in production. These can include performance, security, or usability issues. A deployment pipeline should enable collaboration between the various groups involved in delivering software and provide everyone visibility about the flow of changes in the system, together with a thorough audit trail.
+\begin{itemize}[label={$\bullet$}]
+\item Fail Early: Alle Probleme die in Produktion auftreten können so früh es geht festestellen.
+\end{itemize}
+
+\subsection{Reichweite und Umfang}
+\begin{itemize}
+  \item Reichweite
+  \begin{itemize}
+    \item Development
+    \item Test
+    \item Production
+  \end{itemize}
+  \item Umfang
+  \begin{itemize}
+    \item Building Application
+    \item Unit test Application
+    \item Build Environemnts
+    \item Deployment
+    \item Acceptance Testing
+    \item Security
+  \end{itemize}
+\end{itemize}
+
+\subsection{Vorgehen}
+A good way to introduce continuous delivery is to model your current delivery process as a deployment pipeline, then examine this for bottlenecks, opportunities for automation, and collaboration points.
+\begin{itemize}[label={$\bullet$}]
+\item Model your value stream and create a walking skeleton.
+\item Automate the build and deployment process.
+\item Automate unit tests and code analysis.
+\item Automate acceptance tests.
+\item Automate releases.
+\end{itemize}
+
+\href{http://www.informit.com/articles/article.aspx?p=1621865&seqNum=8}{Vorgehen nach Martin Fowler}
+
+\subsection{Umdenken im Testing}
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/TestPyramid.png}
+\vfill
+\begin{figure}[!b]
+  Burnes, B. (2004). \href{http://doi.org/10.1111/j.1467-6486.2004.00463.x}{Kurt Lewin and the planned approach to change: A re-appraisal}. Journal of Management Studies.
+\end{figure}
+
+
+\subsection{range and scope}
+\centering
+\smartdiagram[descriptive diagram]{
+  {Style,{Define shapes, colors, shading,
+          and line styles for nodes and arrows}},
+  {Position, {Place nodes using a matrix,
+              relative or absolute positioning}},
+  {Relation, Insert edges or arrows
+             between selected nodes},
+  {Label, Add labels on edges or arrows}}
+
+
+% http://texdoc.net/texmf-dist/doc/latex/smartdiagram/smartdiagram.pdf
+\subsection{Umdenken im Testing}
+\centering
+\smartdiagramset{border color=none,
+   set color list={ipt-blue,ipt-blue,orange!50!red,red!80!black},
+   back arrow disabled=true}
+\smartdiagram[flow diagram:horizontal]{Run,Analyse,Modify~/ Add}
+
+
+\subsection{Building a Deplyoment Pipeline}
+\centering
+\smartdiagramset{border color=none,sequence item border color=none,sequence item font size=\footnotesize, sequence item text color=ipt-blue,
+  set color list={ipt-LIGHT-blue,ipt-light-blue,ipt-LIGHT-red}
+}
+\smartdiagram[sequence diagram]{Run,Verify,Release}
+
+\end{document}

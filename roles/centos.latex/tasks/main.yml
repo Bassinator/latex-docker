@@ -12,7 +12,6 @@
     extra_opts:
     - '--transform'
     - 's/^install-tl-[0-9]\{8\}/install-tl-dir/'
-  register: latexdl
 
 - cpanm:
     name: 'Digest::MD5'
@@ -55,3 +54,15 @@
   command: incrontab -d
   become_user: vagrant
   when: incron.changed
+
+- name: configure autostart or incrond with supervisord
+  blockinfile:
+    path: /etc/supervisord.conf
+    block: |
+      [program:incrond]
+      command=/sbin/incrond -n &
+  register: supervisord
+
+- name: start incrond via supervisord
+  command: supervisorctl update
+  when: supervisord.changed

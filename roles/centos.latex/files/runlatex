@@ -1,4 +1,8 @@
 #!/bin/bash
-
+PATH=/usr/local/texlive/2017/bin/x86_64-linux/:$PATH
 cd $1
-/usr/local/texlive/2017/bin/x86_64-linux/pdflatex --output-format=pdf --output-directory=$2 $3
+fileextension="${3##*.}"
+if [ "$fileextension" == "tex" ]; then
+  jobname=`basename -s .tex $3`
+  latexmk -quiet -pdf -output-directory=$2/$jobname $3
+fi

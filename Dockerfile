@@ -31,15 +31,21 @@ RUN echo 'vagrant ALL=NOPASSWD: ALL' >> /etc/sudoers.d/vagrant
 RUN mkdir /var/run/sshd
 
 
-RUN echo "[supervisord]" > /etc/supervisord.conf && \
+RUN echo "[unix_http_server]" > /etc/supervisord.conf && \
+    echo "file=/tmp/supervisor.sock" >> /etc/supervisord.conf && \
+    echo "" >> /etc/supervisord.conf && \
+    echo "[supervisord]" >> /etc/supervisord.conf && \
     echo "nodaemon=true" >> /etc/supervisord.conf && \
     echo "" >> /etc/supervisord.conf && \
+    echo "[rpcinterface:supervisor]" >> /etc/supervisord.conf && \
+    echo "supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf && \
+    echo "" >> /etc/supervisord.conf && \
     echo "[supervisorctl]" >> /etc/supervisord.conf && \
+    echo "serverurl=unix:///tmp/supervisor.sock" >> /etc/supervisord.conf && \
     echo "" >> /etc/supervisord.conf && \
     echo "[program:sshd]" >> /etc/supervisord.conf && \
     echo "command=/usr/sbin/sshd -D -e" >> /etc/supervisord.conf
 
 
-#CMD ["/usr/sbin/sshd", "-D","-e"]
 CMD ["/usr/bin/supervisord"]
 EXPOSE 22

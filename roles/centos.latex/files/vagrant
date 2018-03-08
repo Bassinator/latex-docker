@@ -1,1 +1,1 @@
-/vagrant/source IN_MODIFY /usr/bin/runlatex /vagrant/source /vagrant/target /vagrant/source/$#
+/vagrant/source IN_MODIFY /usr/bin/runlatex /vagrant/source /vagrant/target $#

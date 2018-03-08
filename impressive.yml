@@ -1,8 +1,0 @@
----
-- name: odiDevEnv
-  hosts: all
-  become: true
-  become_method: sudo
-
-  roles:
-    - centos.impressive
